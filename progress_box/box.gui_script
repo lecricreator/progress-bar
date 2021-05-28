@@ -1,0 +1,43 @@
+local progress = {}
+local life = 1
+local maxLife = 10
+local ratio = {}
+local color = {red = vmath.vector4(1, 0, 0, 1), orange = vmath.vector4(1, 0.5, 0, 1), green = vmath.vector4(0, 1, 0, 1)}
+
+local function changeColor(gui)
+	if life < 3 then
+		gui.set_color(progress.node, color.red)
+	elseif life >= 3 and life <= 7 then
+		gui.set_color(progress.node, color.orange)
+	elseif life > 7 then
+		gui.set_color(progress.node, color.green)
+	end
+end
+
+local function sizeProgress(gui)
+	ratio = life / maxLife
+	progress.size.x = ratio * progress.maxWidth
+	gui.set_size(progress.node, progress.size)
+	changeColor(gui)
+end
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	progress = {size = vmath.vector3(0, 60, 0), maxWidth = 500, node = gui.get_node("progress")}
+	sizeProgress(gui)
+end
+
+function on_input(self, action_id, action)
+
+	if action_id == hash("click_left") and action.pressed then
+		if life >= 1 then
+			life = life - 1
+			sizeProgress(gui)
+		end
+	elseif action_id == hash("click_right") and action.pressed then
+		if life <= 9 then
+			life = life + 1
+			sizeProgress(gui)
+		end
+	end
+end

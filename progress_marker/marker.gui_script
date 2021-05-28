@@ -1,0 +1,42 @@
+
+local progress = {posi = vmath.vector3(76, 100, 0), size = vmath.vector3(1, 95, 0), maxWidth = 800}
+
+local sec = 0
+local maxSec = 100
+
+local marker = {}
+-- marker[0] will be cloned
+marker[0] = {posi = vmath.vector3(1200, 100, 1), id = "marker"}
+marker[1] = {posi = vmath.vector3(0, 100, 0), time = 12}
+marker[2] = {posi = vmath.vector3(0, 100, 0), time = 50}
+marker[3] = {posi = vmath.vector3(0, 100, 0), time = 75}
+
+local function positionMarkerX(pPosiStart, pSec, pMaxSec, pMaxBar)
+	local position = pPosiStart + (pSec * pMaxBar / pMaxSec)
+	--print("position marker X : "..position)
+	return position
+end
+
+function init(self)
+	marker[0].node = gui.get_node(marker[0].id)
+	for n = 1, #marker do
+		marker[n].node = gui.clone(marker[0].node)
+		marker[n].posi.x = positionMarkerX(progress.posi.x, marker[n].time, maxSec, progress.maxWidth)
+		gui.set_position(marker[n].node, marker[n].posi)
+	end
+end
+
+local function advanceBar(gui)
+	local ratio = sec / maxSec
+	--print("ratio : "..ratio)
+	if ratio < 1 then
+		sec = sec + 0.2
+		--print("seconde : "..sec)
+		local sizeProgress = vmath.vector3(progress.maxWidth * ratio, progress.size.y, 0)
+		gui.set_size(gui.get_node("progress"), sizeProgress)
+	end
+end
+
+function update(self, dt)
+	advanceBar(gui)
+end

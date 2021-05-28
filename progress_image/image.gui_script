@@ -1,0 +1,23 @@
+local progress = {size = vmath.vector3(0, 95, 0), maxWidth = 800}
+local timer = {seconde = 0, maxSec = 100}
+local ratio = {}
+
+function init(self)
+
+
+end
+
+
+function update(self, dt)
+	timer.seconde = timer.seconde + 10 * dt
+	--print("seconde : "..timer.seconde)
+	ratio = timer.seconde / timer.maxSec
+	progress.size.x = ratio * progress.maxWidth
+	--print("the ratio : "..ratio)
+	
+	if timer.seconde <= timer.maxSec then
+		gui.set_size(gui.get_node("progress"), progress.size)
+	else 
+		timer.seconde = 0
+	end
+end
