@@ -10,7 +10,7 @@ In this project, there will be three approaches to the progress bar:
 - **The player life bar** (file: progress_box). Will allow to see how to make a progress bar without image just with the GUI boxes and change the colour of the progress bar according to the player's life.
 ![image loading](https://github.com/malamiamato/progress-bar/blob/main/image/load.gif)
 - **The loading bar** (file: progress_image). Will allow to see how to make a progress bar with an image (using the clipping mode).
-![image progress](https://github.com/malamiamato/progress-bar/blob/main/image/progress_bar.gif)
+![image progress](https://github.com/malamiamato/progress-bar/blob/main/image/progression.gif)
 - **The progress bar** (file: progress_marker). Will allow to see how to put markers, according to the objectives of the player.
 
 This project is far from perfect, but it helps to understand how to make a progress bar for beginners.
